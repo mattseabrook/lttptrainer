@@ -14,9 +14,9 @@ win32 API is a net zero for my time, so I'm switching over to SDL for the next r
 
 ## Table-of-Contents
 
-1. Getting Started
+1. [Getting Started](https://github.com/mattseabrook/lttptrainer#getting-started)
       1. Windows
-2. LTTP State RAM Debugging
+2. [LTTP State RAM Debugging](https://github.com/mattseabrook/lttptrainer#lttp-state-ram-debugging)
       1. Manual solution from 2010
       2. Real-time tracing from SNES9x source
 3. SRAM Map
