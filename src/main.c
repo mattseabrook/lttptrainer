@@ -20,41 +20,6 @@
 //===========================================================================
 
 /*
-===============
-clear_screen
-
-Clear the console screen and scrollback
-===============
-*/
-void clear_screen(HANDLE hConsole)
-{
-    COORD coordScreen = {0, 0};
-    DWORD cCharsWritten;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD dwConSize;
-
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-
-    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-
-    // Fill the entire screen with blanks
-    FillConsoleOutputCharacter(hConsole, (TCHAR)' ',
-                               dwConSize, coordScreen, &cCharsWritten);
-
-    // Get the current text attribute
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-
-    // Set the buffer's attributes accordingly
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
-                               dwConSize, coordScreen, &cCharsWritten);
-
-    // Reset cursor to {0, 0}
-    SetConsoleCursorPosition(hConsole, coordScreen);
-
-    return;
-}
-
-/*
 =============================================================================
 						 MAIN ENTRYPOINT
 =============================================================================
@@ -65,23 +30,25 @@ int main(int argc, char *argv[])
     HANDLE hStdOut;
     hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    // Clear the screen?
-    clear_screen(hStdOut);
-
     // Program information & credits
     SetConsoleTextAttribute(hStdOut, 2);
     printf("Zelda: A Link to the Past\n");
     SetConsoleTextAttribute(hStdOut, 7);
-    printf("Trainer API v.1.0 - Matt Seabrook (info@mattseabrook.net)");
+    printf("Trainer API v.1.1 - Matt Seabrook (info@mattseabrook.net)\n\n");
 
     //
     // Parse CLI args
     //
+    if (!argv[1])
+    {
+        help_text();
+        return 0;
+    }
 
     // Testing - Remove once the final architecture is in place
     if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
-    { /* the first argument is -W */
-        printf("Test was invoked.");
+    {
+        printf("Test was invoked.\n");
     }
     //
     // Inspect an *.srm file containing an SRAM dump
@@ -133,21 +100,31 @@ int main(int argc, char *argv[])
           |.'\n");
 
         printf("\n\n\tlttptrainer\n");
-        printf("\tv.1.0 - 11/23/2020 \n\n");
+        printf("\tv.1.1 - 12/13/2020 \n\n");
         printf("\tAuthor: Matt Seabrook\n");
     }
     //
     // Help text
     //
     else if (strcmp(argv[1], "-H") == 0 || strcmp(argv[1], "-h") == 0)
-    {
-        printf("\n\n\tUsage: lttptrainer -switch [options...]\n\n");
-        printf("\t-h\tDisplay this help text\n");
-        printf("\t-i\tInspect an *.srm file containing the contents of an SRAM dump\n");
-        printf("\t-s\tStart the RAM Tracing engine\n");
-        printf("\t-v\tDisplay version information\n");
-        printf("\nPlease refer to the README.md for more information.\n");
-    }
+        help_text();
 
     return 0;
+}
+
+/*
+===============
+help_text
+
+Display typical help text to the console
+===============
+*/
+void help_text()
+{
+    printf("\tUsage: lttptrainer -switch [options...]\n\n");
+    printf("\t-h\tDisplay this help text\n");
+    printf("\t-i\tInspect an *.srm file containing the contents of an SRAM dump\n");
+    printf("\t-s\tStart the RAM Tracing engine\n");
+    printf("\t-v\tDisplay version information\n");
+    printf("\nPlease refer to the README.md for more information.\n");
 }

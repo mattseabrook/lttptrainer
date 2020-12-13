@@ -1,6 +1,7 @@
 // sram.c
 
 #include <stdio.h>
+#include <windows.h>
 
 #include "sram.h"
 
@@ -10,20 +11,7 @@
 =============================================================================
 */
 
-//static unsigned char *byte_buffer;
-static char *dump;
-
-/*
-===============
-sramdump_window
-
-Create the Win32 Window that will display the contents of the SRAM dump
-===============
-*/
-void sramdump_window(void)
-{
-    // SDL stuff
-}
+static unsigned char *byte_buffer;
 
 //===========================================================================
 
@@ -65,17 +53,15 @@ void sramdump_validate(char *file)
 ===============
 sramdump
 
-x
+Go through the entire byte_buffer index
 ===============
 */
 void sramdump(FILE *srm)
 {
     char ch;
-    unsigned char *byte_buffer;
     unsigned long index = 0;
 
     byte_buffer = malloc(SLOTSIZE);
-    dump = malloc(SLOTSIZE);
 
     while (!feof(srm))
     {
@@ -86,16 +72,13 @@ void sramdump(FILE *srm)
             byte_buffer[index] = ch;
 
             //sprintf(dump, "0x%02x", byte_buffer[index]);
-            //sprintf(dump+(index*2), "%02x", byte_buffer[index]);
+            //sprintf(dump + (index * 2), "%02x", byte_buffer[index]);
+            //...
 
-            // Rework this logic - The idea is to have spreadsheet/hex editor like cells
             index++;
-
-            if (index == SLOTSIZE)
-                sramdump_window();
         }
     }
 
-    free(byte_buffer);
+    //free(byte_buffer);
     fclose(srm);
 }
