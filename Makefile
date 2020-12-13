@@ -28,6 +28,6 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) *.o *~ $(TARGET)
+	$(RM) src/*.o *~ $(TARGET)
 
 # Libs: $(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJ) $(LIBS)
