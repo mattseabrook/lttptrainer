@@ -12,12 +12,24 @@
 #include <err.h>
 
 #include "serve.h"
+
 /*
 =============================================================================
-						 HTTP_SERVE
+						 HTTP SERVE
 =============================================================================
 */
 
+static char response[8192];
+
+//===========================================================================
+
+/*
+===============
+http_serve
+
+Basic HTTP functionality
+===============
+*/
 int http_serve()
 {
 
@@ -57,13 +69,15 @@ int http_serve()
         }
 
         //...
-        char buffer[64];
-        char response[8192];
+        char buffer[8192];
 
         while (read(client_fd, buffer, sizeof buffer - 1) > 0)
         {
-            printf("%s", buffer);
-            //response = http_route(buffer);
+            char *url = strtok(buffer, "\n");
+
+            http_route(url);
+
+            break;
         }
 
         write(client_fd, response, sizeof(response) - 1); /*-1:'\0'*/
@@ -71,20 +85,20 @@ int http_serve()
     }
 }
 
-char http_route(char url)
+/*
+===============
+http_route
+
+x
+===============
+*/
+void http_route(char *url)
 {
-    //...
+    printf("url: %s\n", url);
+    // /api/ ?      <-- strtok
 
-    // strcat
-
-    // /api/ ?
-    //
-    // Byte Buffer
-    //
-    char response[] = "HTTP/1.1 200 OK\r\n"
-                      "Content-Type: text/html; charset=UTF-8\r\n\r\n"
-                      "<!DOCTYPE html><html><head><title>lttpLabs v.1.0 - Lakeshore Technical</title></head>"
-                      "<body><h1>lttpLabs v.1.0</h1><div id=\"app\"></div></body><script src=\"app.js\"></html>\r\n";
-
-    return response;
+    strcat(response, "HTTP/1.1 200 OK\r\n");
+    strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
+    strcat(response, "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>");
+    strcat(response, "<body><div id=\"app\"></div></body><script src=\"http://127.0.0.1:52386/app.js\"></html>\r\n");
 }

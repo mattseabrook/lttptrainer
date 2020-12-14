@@ -16,6 +16,7 @@
 #include <windows.h>
 
 #include "sram.h"
+#include "serve.h"
 
 //===========================================================================
 
@@ -62,6 +63,9 @@ int main(int argc, char *argv[])
     //
     else if (strcmp(argv[1], "-R") == 0 || strcmp(argv[1], "-r") == 0)
     {
+        // Figure out stuff about pids and background processes in Windows,
+        http_serve();
+
         // Get snes9x process
         // Hotkey to save srm file
     }
