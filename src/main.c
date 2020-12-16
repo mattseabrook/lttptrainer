@@ -40,13 +40,6 @@ int main(int argc, char *argv[])
     //
     // Parse CLI args
     //
-    if (!argv[1])
-    {
-        help_text();
-        return 0;
-    }
-
-    // Testing - Remove once the final architecture is in place
     if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
     {
         printf("Test was invoked.\n");
@@ -111,7 +104,13 @@ int main(int argc, char *argv[])
     // Help text
     //
     else if (strcmp(argv[1], "-H") == 0 || strcmp(argv[1], "-h") == 0)
+    {
         help_text();
+    }
+    else
+    {
+        help_text();
+    }
 
     return 0;
 }
