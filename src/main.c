@@ -13,7 +13,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
 
 #include "sram.h"
 #include "serve.h"
@@ -27,14 +26,10 @@
 */
 int main(int argc, char *argv[])
 {
-    // Get a handle on the Command Prompt
-    HANDLE hStdOut;
-    hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
     // Program information & credits
-    SetConsoleTextAttribute(hStdOut, 2);
+    //    SetConsoleTextAttribute(hStdOut, 2);
     printf("Zelda: A Link to the Past\n");
-    SetConsoleTextAttribute(hStdOut, 7);
+    //SetConsoleTextAttribute(hStdOut, 7);
     printf("Trainer API v.1.1 - Matt Seabrook (info@mattseabrook.net)\n\n");
 
     //

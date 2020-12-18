@@ -1,7 +1,6 @@
 // sram.c
 
 #include <stdio.h>
-#include <windows.h>
 
 #include "sram.h"
 
@@ -53,15 +52,17 @@ void sramdump_validate(char *file)
 ===============
 sramdump
 
-Go through the entire byte_buffer index
+Go through the entire byte_buffer index and print it to the console
 ===============
 */
 void sramdump(FILE *srm)
 {
     char ch;
     unsigned long index = 0;
-
+    unsigned long width = 0;
     byte_buffer = malloc(SLOTSIZE);
+
+    printf("Slot 0:\n\n");
 
     while (!feof(srm))
     {
@@ -71,14 +72,59 @@ void sramdump(FILE *srm)
         {
             byte_buffer[index] = ch;
 
-            //sprintf(dump, "0x%02x", byte_buffer[index]);
-            //sprintf(dump + (index * 2), "%02x", byte_buffer[index]);
-            //...
+            if (byte_buffer[index] != 0)
+            {
+                printf("\x1B[36m%02x ", byte_buffer[index]);
+                printf("\x1B[0m");
+            }
+            else
+            {
+                printf("%02x ", byte_buffer[index]);
+            }
+
+            // Represent 0 through F per row
+            if (width == 15)
+            {
+                printf("\n");
+                width = 0;
+            }
+            else
+            {
+                width++;
+            }
 
             index++;
         }
     }
 
-    //free(byte_buffer);
     fclose(srm);
+    //free(byte_buffer);
 }
+
+/*
+
+    char *function() {
+    char *str = malloc(13); // dynamically allocate a char array
+
+    if(str == NULL) {
+        printf("Error allocating memory for string.");
+        exit(1);
+    }
+
+    strcpy(str, "hello world!");
+    return str;
+    }
+
+    int main(void) {
+    char *str = function();
+    printf("%s\n", str);
+    free(str);                   // free the memory
+    return 0;
+    }
+
+*/
+
+// strcpy byte_buffer in my function above
+// call this function from serve.c
+// All of this has to occur from a new TEST switch - which calls the sram_validate first,
+//      - so that byte_buffer exists

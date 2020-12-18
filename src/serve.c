@@ -12,6 +12,7 @@
 #include <err.h>
 
 #include "serve.h"
+#include "sram.h"
 
 /*
 =============================================================================
@@ -132,7 +133,9 @@ void http_route(char *url)
         //
         else if (strcmp(target, "/api/z3") == 0)
         {
-            strcat(response, "00EE0F5A");
+            strcat(response, "HTTP/1.1 200 OK\r\n");
+            strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
+            strcat(response, byte_buffer);
         }
         //
         //
