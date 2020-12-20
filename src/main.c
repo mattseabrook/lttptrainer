@@ -58,6 +58,15 @@ int main(int argc, char *argv[])
         // Hotkey to save srm file
     }
     //
+    // Test (Remove later)
+    //
+    else if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
+    {
+        //...
+        sramdump_validate(argv[2]);
+        http_serve();
+    }
+    //
     // Version info
     //
     else if (strcmp(argv[1], "-V") == 0 || strcmp(argv[1], "-v") == 0)

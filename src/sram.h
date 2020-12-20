@@ -11,5 +11,6 @@
 
 void sramdump_validate(char *file);
 void sramdump(FILE *srm);
+char *sramdump_print();
 
 #endif

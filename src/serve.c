@@ -131,11 +131,13 @@ void http_route(char *url)
         //
         // z3 API
         //
-        else if (strcmp(target, "/api/z3") == 0)
+        else if (strcmp(target, "/api/z3/sram") == 0)
         {
+            char *str = sramdump_print();
+
             strcat(response, "HTTP/1.1 200 OK\r\n");
             strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
-            strcat(response, byte_buffer);
+            strcat(response, str);
         }
         //
         //

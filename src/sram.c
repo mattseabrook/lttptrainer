@@ -101,6 +101,11 @@ void sramdump(FILE *srm)
     //free(byte_buffer);
 }
 
+char *sramdump_print()
+{
+    // ...
+    return byte_buffer;
+}
 /*
 
     char *function() {
