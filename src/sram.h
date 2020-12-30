@@ -11,6 +11,9 @@
 
 void sramdump_validate(char *file);
 void sramdump(FILE *srm);
-char *sramdump_print();
+
+//===========================================================================
+
+extern char sram[SLOTSIZE * 2 + 1];
 
 #endif

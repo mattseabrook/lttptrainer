@@ -20,7 +20,7 @@
 =============================================================================
 */
 
-static char response[2048];
+static char response[16000];
 
 //===========================================================================
 
@@ -71,6 +71,7 @@ int http_serve()
 
         //...
         char buffer[8192];
+        int len;
 
         while (read(client_fd, buffer, sizeof buffer - 1) > 0)
         {
@@ -81,11 +82,14 @@ int http_serve()
             break;
         }
 
-        write(client_fd, response, sizeof(response) - 1); /*-1:'\0'*/
+        len = strlen(response);
+
+        //write(client_fd, response, sizeof(response) - 1); /*-1:'\0'*/
+        write(client_fd, response, len); /*-1:'\0'*/
         close(client_fd);
 
-        //...
-        memset(response, 0, sizeof response);
+        // Empty response[]
+        memset(&response[0], 0, sizeof(response));
     }
 }
 
@@ -93,11 +97,14 @@ int http_serve()
 ===============
 http_route
 
-Delimit the first line of the request by " " and determine the action requested by the platform and/or end -user
+x
 ===============
 */
 void http_route(char *url)
 {
+    //
+    // Delimit the first line of the request by " " and determine the action requested by the platform and/or end -user
+    //
     const char *pattern = " ";
 
     char *target = NULL;
@@ -114,8 +121,13 @@ void http_route(char *url)
         }
     }
 
+    //
     // Check for ? and remove all that before dealing with "target"
+    //
 
+    //
+    // Send the appropriate response[]
+    //
     if (target)
     {
         //
@@ -123,31 +135,29 @@ void http_route(char *url)
         //
         if (strcmp(target, "/") == 0)
         {
-            strcat(response, "HTTP/1.1 200 OK\r\n");
-            strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
-            strcat(response, "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>");
-            strcat(response, "<body><div id=\"app\"></div></body><script src=\"http://127.0.0.1:52386/app.js\"></html>\r\n");
+            strcat(response, "HTTP/1.1 200 OK\r\n"
+                             "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                             "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>"
+                             "<body><div id=\"app\"></div></body><script src=\"http://127.0.0.1:52386/app.js\"></html>\r\n");
         }
         //
         // z3 API
         //
         else if (strcmp(target, "/api/z3/sram") == 0)
         {
-            char *str = sramdump_print();
-
-            strcat(response, "HTTP/1.1 200 OK\r\n");
-            strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
-            strcat(response, str);
+            strcat(response, "HTTP/1.1 200 OK\r\n"
+                             "Content-Type: text/html; charset=UTF-8\r\n\r\n");
+            strcat(response, sram);
         }
         //
-        //
+        // 404 ERROR NOT FOUND
         //
         else
         {
-            strcat(response, "HTTP/1.1 404 Not Found\r\n");
-            strcat(response, "Content-Type: text/html; charset=UTF-8\r\n\r\n");
-            strcat(response, "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>");
-            strcat(response, "<body><p>Not Found!</p></body></html>\r\n");
+            strcat(response, "HTTP/1.1 404 Not Found\r\n"
+                             "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                             "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>"
+                             "<body><p>Not Found!</p></body></html>\r\n");
         }
     }
 
