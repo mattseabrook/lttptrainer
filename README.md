@@ -160,3 +160,32 @@ MoveWindow(wh, 20, 20, 1280, 960, TRUE);
 - Map of memory offsets in the Save State: <http://alttp.run/hacking/index.php?title=SRAM_Map>
 - Dev Reading: <https://www.romhacking.net/forum/index.php?topic=22338.0>
 - Z3 Compendium v1.8.4 PDF: <http://dl.dropbox.com/s/8v2vjem6gtaj2a4/Zelda%203%20Compendium%20v1.8.4.pdf> (somewhat out of date?)
+
+# TODO
+
+- Expand Makefile to have `make windows` , `make linux` , etc.
+- Add `git` functionality to the makefile
+
+# Errors
+
+`02/20/2021`
+
+```text
+src/serve.c:57:48: warning: passing argument 4 of 'setsockopt' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(int));
+      |                                                ^~~~
+      |                                                |
+      |                                                int *
+
+
+
+
+
+
+
+
+In file included from src/serve.c:9:
+/usr/x86_64-w64-mingw32/include/winsock2.h:999:88: note: expected 'const char *' but argument is of type 'int *'
+  999 |   WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
+      |                                                                            ~~~~~~~~~~~~^~~~~~
+```

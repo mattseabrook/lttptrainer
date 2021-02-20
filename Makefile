@@ -3,6 +3,12 @@ TARGET_EXEC ?= lttptrainer.exe
 BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src
 
+# Addition for x86_64-w64-mingw32-cc to target C for Windows
+CC := x86_64-w64-mingw32-cc
+
+# Winsock library support for Windows
+LDLIBS=-lws2_32
+
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
@@ -13,7 +19,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS) $(LDLIBS)
 
 # assembly
 $(BUILD_DIR)/%.s.o: %.s

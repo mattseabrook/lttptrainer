@@ -5,11 +5,16 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#ifdef __WIN32__
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#else
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <err.h>
+#endif
 
 #include "serve.h"
 #include "sram.h"
@@ -33,14 +38,21 @@ Basic HTTP functionality
 */
 int http_serve()
 {
-
     int one = 1, client_fd;
     struct sockaddr_in svr_addr, cli_addr;
+
     socklen_t sin_len = sizeof(cli_addr);
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0)
+    {
+#ifdef __WIN32__
+        fprintf(stderr, "Unable to open the socket");
+        exit(1);
+#else
         err(1, "Unable to open the socket");
+#endif
+    }
 
     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(int));
 
@@ -55,7 +67,13 @@ int http_serve()
     if (bind(sock, (struct sockaddr *)&svr_addr, sizeof(svr_addr)) == -1)
     {
         close(sock);
+
+#ifdef __WIN32__
+        fprintf(stderr, "Unable to bind the socket");
+        exit(1);
+#else
         err(1, "Unable to bind the socket");
+#endif
     }
 
     listen(sock, 5);
@@ -97,13 +115,13 @@ int http_serve()
 ===============
 http_route
 
-x
+Parse the requested URL and Query Parameters, and return the expected data from performing various tasks to the end-user
 ===============
 */
 void http_route(char *url)
 {
     //
-    // Delimit the first line of the request by " " and determine the action requested by the platform and/or end -user
+    // Delimit the first line of the request by " " and determine the action requested by the platform and/or end-user
     //
     const char *pattern = " ";
 
@@ -137,7 +155,7 @@ void http_route(char *url)
         {
             strcat(response, "HTTP/1.1 200 OK\r\n"
                              "Content-Type: text/html; charset=UTF-8\r\n\r\n"
-                             "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>"
+                             "<!DOCTYPE html><html><head><title>Link's Lab v.1.0</title></head>"
                              "<body><div id=\"app\"></div></body><script src=\"http://127.0.0.1:52386/app.js\"></html>\r\n");
         }
         //
@@ -156,7 +174,7 @@ void http_route(char *url)
         {
             strcat(response, "HTTP/1.1 404 Not Found\r\n"
                              "Content-Type: text/html; charset=UTF-8\r\n\r\n"
-                             "<!DOCTYPE html><html><head><title>lttpLabs v.1.1 - Lakeshore Technical</title></head>"
+                             "<!DOCTYPE html><html><head><title>Link's Lab v.1.0</title></head>"
                              "<body><p>Not Found!</p></body></html>\r\n");
         }
     }
