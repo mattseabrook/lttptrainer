@@ -150,7 +150,7 @@ Miscaellaneous items that may be useful.
 ```c
 // Get console window handle
 HWND wh = GetConsoleWindow();
-
+a
 // Move window to required position
 MoveWindow(wh, 20, 20, 1280, 960, TRUE);
 ```
@@ -178,11 +178,7 @@ src/serve.c:57:48: warning: passing argument 4 of 'setsockopt' from incompatible
       |                                                |
       |                                                int *
 
-
-
-
-
-
+-
 
 
 In file included from src/serve.c:9:
