@@ -169,7 +169,7 @@ MoveWindow(wh, 20, 20, 1280, 960, TRUE);
 
 # Errors
 
-`02/20/2021`
+Things to work on, based on compile from: `02/20/2021`
 
 ```text
 src/serve.c:57:48: warning: passing argument 4 of 'setsockopt' from incompatible pointer type [-Wincompatible-pointer-types]
