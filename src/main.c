@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 {
     // Program information & credits
     printf("Zelda: A Link to the Past\n");
-    printf("Trainer API v.1.1 - Matt Seabrook (info@mattseabrook.net)\n\n");
+    printf("Trainer API v.0.1 - Matthew Seabrook (info@mattseabrook.net)\n\n");
 
     //
     // Parse CLI args
@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
           |.'\n");
 
         printf("\n\n\tlttptrainer\n");
-        printf("\tv.1.2 - 12/22/2020 \n\n");
-        printf("\tAuthor: Matt Seabrook\n");
+        printf("\tv.0.1 - 02/20/2021 \n\n");
+        printf("\tAuthor: Matthew Seabrook\n");
     }
     //
     // Help text

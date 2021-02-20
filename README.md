@@ -165,6 +165,7 @@ MoveWindow(wh, 20, 20, 1280, 960, TRUE);
 
 - Expand Makefile to have `make windows` , `make linux` , etc.
 - Add `git` functionality to the makefile
+- Add `make configure` to the makefile
 
 # Errors
 
