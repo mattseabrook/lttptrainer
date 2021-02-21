@@ -6,17 +6,11 @@ The first step is to gather as much community documentation regarding A Link to 
 
 No frameworks, working in C so that this can ultimately be used with real hardware. This project has many ambitious short & long-term goals regarding the usage of data traced in real-time from the memory of the SNES game Zelda: A Link to the Past. Future revisions of the document will go into further detail. 
 
-## Status
-
-**December 2020**:
-
-win32 API is a net zero for my time, so I'm switching over to SDL for the next revision. 
-
 ## Table-of-Contents
 
 1. [Getting Started](https://github.com/mattseabrook/lttptrainer#getting-started)
       1. Windows
-2. [LTTP State RAM Debugging](https://github.com/mattseabrook/lttptrainer#lttp-state-ram-debugging)
+2. [LTTP State RAM Debugging](#lttp-state-ram-debugging)
       1. Manual solution from 2010
       2. Real-time tracing from SNES9x source
 3. SRAM Map
@@ -36,7 +30,6 @@ Follow the instructions for your platform:
 
 Go to the `build` directory and run `nmake all`. The `*.exe` will be located in `\bin\x86`
 
-
 # Developer Notes
 
 x
@@ -51,7 +44,7 @@ x
 | snes9x lua      | x           |
 | geiger debugger | x           |
 
-**Steps:**
+**Steps to reproduce:**
 - Show Hex button
 - Set Range: 7E0000 - 7FFFFF
 - Dump (this dumps the entire memory of the SNES game)
