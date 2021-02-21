@@ -1,10 +1,12 @@
 # Introduction
 
-Please note this is an extremely early initial commit, so things aren't lost before the switch to SDL.
+This project has many ambitious short & long-term goals regarding the usage of data traced in real-time from the memory of the SNES game Zelda: A Link to the Past. 
 
-The first step is to gather as much community documentation regarding A Link to the Past as possible, clean it up, and create a proper Knowledge Base / PDF for Developers.
+As I gather as much community documentation regarding A Link to the Past as possible, clean it up, and create my own notes for this project, I am generating an up-to-date Offical PDF for 2021. It's a WIP included in this repo [here](#).
 
-No frameworks, working in C so that this can ultimately be used with real hardware. This project has many ambitious short & long-term goals regarding the usage of data traced in real-time from the memory of the SNES game Zelda: A Link to the Past. Future revisions of the document will go into further detail. 
+## Design philosophy
+
+No frameworks, working in C so that this can ultimately be used with real hardware. 
 
 ## Table-of-Contents
 
@@ -24,11 +26,11 @@ No frameworks, working in C so that this can ultimately be used with real hardwa
 
 Follow the instructions for your platform. Listed below are the general pre-requisites if **not** using `Docker`:
 
-| Pre-req   | Desc                                                      |
-| --------- | --------------------------------------------------------- |
-| Docker    | For reference, our container - Alpine Linux mingw-w64-gcc |
-| snes9x    | x                                                         |
-| alttp rom | x                                                         |
+| Pre-req   | Desc                                                           |
+| --------- | -------------------------------------------------------------- |
+| Docker    | For reference, our container - `Alpine Linux`, `mingw-w64-gcc` |
+| snes9x    | x                                                              |
+| alttp rom | x                                                              |
 
 From a QA perspective, this software is only guaranteed to work with a ROM that matches these exact specifications:
 
