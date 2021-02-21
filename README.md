@@ -75,87 +75,31 @@ The SRAM save loading routing relies upon an inverse checksum. Additions to any 
 
 If I add a value to a memory location with an even address, I must subtract from the even address of the inverse checksum. Example: Suppose I add $4 to $305. $305 is odd, so I SUBTRACT $4 from the odd checksum byte: $4FF. If I subtracted from $305, I must add to $4FF. This maintains the "balance" of the file and keeps it from being erased.
 
-# Cross-platform C code for colorized console output of SRAM bytes in hex
+# SNES9X
 
-Just keeping this code around if I ever want to dump a `*.srm` or `*.000` to the command line again for debugging purposes. This code will print the bytes in hex in 16 rows 0 through F-
+x
 
-```c
-/*
-===============
-sramdump
+- Recommend some snes9x settings to the user if applicable?
+- Force the user to enter the path of their snes9x config file
+- ...
 
-Go through the entire byte_buffer index and print it to the console
-===============
-*/
-void sramdump(FILE *srm)
-{
-    char ch;
-    unsigned long index = 0;
-    unsigned long width = 0;
-    byte_buffer = malloc(SLOTSIZE);
+## Send key(s) to the snes9x process in Windows
 
-    // Get a handle on the Command Prompt
-    HANDLE hStdOut;
-    hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    printf("\n\nSlot 0:\n\n");
+x
 
-    while (!feof(srm))
-    {
-        ch = getc(srm);
+## Decompress snes9x save-state files
 
-        if ((index >= 0) && (index <= SLOTSIZE))
-        {
-            byte_buffer[index] = ch;
+Given `sample.00*`:
 
-            if (byte_buffer[index] != 0)
-            {
-                // Put in here OS Specific - Windows uncommented for now
-                //SetConsoleTextAttribute(hStdOut, 3);
-                //printf("\x1B[36m%02x ", byte_buffer[index]);
-                printf("%02x ", byte_buffer[index]);
-                //SetConsoleTextAttribute(hStdOut, 7);
-                //printf("\x1B[0m");
-            }
-            else
-            {
-                printf("%02x ", byte_buffer[index]);
-            }
+```bash
+# Run this command
+file sample.000
 
-            // Represent 0 through F per row
-            if (width == 15)
-            {
-                printf("\n");
-                width = 0;
-            }
-            else
-            {
-                width++;
-            }
-
-            index++;
-        }
-    }
-
-    fclose(srm);
-    free(byte_buffer);
-}
+# Output
+sample.000: gzip compressed data, from TOPS/20, original size modulo 2^32 1164513
 ```
 
-# Code
-
-Miscaellaneous items that may be useful.
-
-## Move a window using win32
-
-```c
-// Get console window handle
-HWND wh = GetConsoleWindow();
-a
-// Move window to required position
-MoveWindow(wh, 20, 20, 1280, 960, TRUE);
-```
-
-# Notes & Links
+# Links
 
 - Map of memory offsets in the Save State: <http://alttp.run/hacking/index.php?title=SRAM_Map>
 - Dev Reading: <https://www.romhacking.net/forum/index.php?topic=22338.0>
@@ -166,6 +110,7 @@ MoveWindow(wh, 20, 20, 1280, 960, TRUE);
 - Expand Makefile to have `make windows` , `make linux` , etc.
 - Add `git` functionality to the makefile
 - Add `make configure` to the makefile
+- Implement `*.cfg` file in C.
 
 # Errors
 
