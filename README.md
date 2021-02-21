@@ -22,7 +22,19 @@ No frameworks, working in C so that this can ultimately be used with real hardwa
 
 # Getting Started for End-Users
 
-Follow the instructions for your platform:
+Follow the instructions for your platform. Listed below are the general pre-requisites if **not** using `Docker`:
+
+| Pre-req   | Desc                                                      |
+| --------- | --------------------------------------------------------- |
+| Docker    | For reference, our container - Alpine Linux mingw-w64-gcc |
+| snes9x    | x                                                         |
+| alttp rom | x                                                         |
+
+From a QA perspective, this software is only guaranteed to work with a ROM that matches these exact specifications:
+
+```text
+x
+```
 
 ## Windows
 
