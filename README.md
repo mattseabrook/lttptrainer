@@ -26,9 +26,9 @@ win32 API is a net zero for my time, so I'm switching over to SDL for the next r
       1. Moving a window using win32
 6. Notes & Links
 
-# Getting Started
+# Getting Started for End-Users
 
-Clone this repository and use `NMAKE` included with Microsoft Visual Studio to build this on the command-line. Ultimately this project is cross-platform so I wanted to stay away from the use of the Visual Studio IDE GUI. Use the **Developer Command Prompt for VS 2019** to interact with the C compiler on Microsoft Windows in a manner that is at least half-way decent
+Follow the instructions for your platform:
 
 ## Windows
 
@@ -36,9 +36,14 @@ Clone this repository and use `NMAKE` included with Microsoft Visual Studio to b
 
 Go to the `build` directory and run `nmake all`. The `*.exe` will be located in `\bin\x86`
 
-# LTTP State RAM Debugging
 
-## Manual solution from 2010
+# Developer Notes
+
+x
+
+## LTTP State RAM Debugging
+
+### Manual solution from 2010
 
 **Prerequisites:**
 | Software        | Description |
@@ -51,7 +56,7 @@ Go to the `build` directory and run `nmake all`. The `*.exe` will be located in 
 - Set Range: 7E0000 - 7FFFFF
 - Dump (this dumps the entire memory of the SNES game)
 
-## Real-time tracing from SNES9x source
+### Real-time tracing from SNES9x source
 
 Given the source code of an emulator, you could recompile from source to generate PDB file using Visual Studio.
 
@@ -59,7 +64,7 @@ Given the source code of an emulator, you could recompile from source to generat
 - DWARF or PDB file (information of where said data is located in memory)
 - Compiler combined w/ Linker knows exactly where things are
 
-# SRAM Map
+## SRAM Map
 
 The `*.srm` file represents memory addresses `$7E0000` through `$7FFFFF`
 
@@ -69,7 +74,9 @@ The `*.srm` file represents memory addresses `$7E0000` through `$7FFFFF`
 | 0x000004FE - 4FF | Inverse Checksum (is really a 16-bit number, not just two 8-bit numbers functioning separately.) |
 | 0x00000F00       | Mirror of Slot 1                                                                                 |
 
-## Notes
+### Notes
+
+*This is copied from a wiki- Need to clean up the copy and cite credits, sources, etc.*
 
 The SRAM save loading routing relies upon an inverse checksum. Additions to any byte in the .srm file, must be subtracted from that save game's checksum to maintain integrity. Failure to observe this precaution will cause the game to attempt to load the mirror copy. Should the mirror copy also fail the checksum verification, the save slot will be cleared.
 
@@ -77,15 +84,17 @@ If I add a value to a memory location with an even address, I must subtract from
 
 # SNES9X
 
-x
+This section contains my notes and useful information related to how my program interacts with `snes9x`. At a high-level we are not using LUA scripts, specially compiled emulators, or anything that is a barrier-to-entry for end-users.
+
+## Design Notes
 
 - Recommend some snes9x settings to the user if applicable?
 - Force the user to enter the path of their snes9x config file
-- ...
+- The reason is, we will need to disable messages/HUD of snes9x since we will be spamming save-state
 
 ## Send key(s) to the snes9x process in Windows
 
-x
+One of the main things I want to do is send an `F5` hotkey every `500 ms` (*or more or less?*) to the `snes9x` process running in Windows, that essentially dumps the entire RAM state of the Super Nintendo to the hard disk. It's `gzip` compressed.
 
 ## Decompress snes9x save-state files
 
@@ -117,16 +126,13 @@ sample.000: gzip compressed data, from TOPS/20, original size modulo 2^32 116451
 Things to work on, based on compile from: `02/20/2021`
 
 ```text
-src/serve.c:57:48: warning: passing argument 4 of 'setsockopt' from incompatible pointer type [-Wincompatible-pointer-types]
+$ src/serve.c:57:48: warning: passing argument 4 of 'setsockopt' from incompatible pointer type [-Wincompatible-pointer-types]
    57 |     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(int));
       |                                                ^~~~
       |                                                |
       |                                                int *
 
--
-
-
-In file included from src/serve.c:9:
+$ In file included from src/serve.c:9:
 /usr/x86_64-w64-mingw32/include/winsock2.h:999:88: note: expected 'const char *' but argument is of type 'int *'
   999 |   WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
       |                                                                            ~~~~~~~~~~~~^~~~~~
