@@ -30,12 +30,27 @@ Follow the instructions for your platform. Listed below are the general pre-requ
 | --------- | -------------------------------------------------------------- |
 | Docker    | For reference, our container - `Alpine Linux`, `mingw-w64-gcc` |
 | snes9x    | x                                                              |
-| alttp rom | x                                                              |
+| alttp rom | Zelda no Densetsu - Kamigami no Triforce                       |
 
 From a QA perspective, this software is only guaranteed to work with a ROM that matches these exact specifications:
 
 ```text
-x
+Name: ZELDANODENSETSU
+Speed: 20/SlowROM
+ROM Map: LoROM
+Type: 02
+Kart contents: ROM+RAM+BAT
+Header ROM Size: 8Mbits
+Calculated ROM Size: 8 Mbits
+SRAM size: 64Kbits (64Kbit)
+Actual Checksum: CDC8
+Header Checksum: CDC8
+Header Checksum Compliment: 3237
+Output: NTSC 60Hz
+CRC32: 3322EFFC
+Licensee: Nintendo
+ROM Version: 1.0
+Region: Japan
 ```
 
 ## Windows
@@ -46,7 +61,7 @@ Go to the `build` directory and run `nmake all`. The `*.exe` will be located in 
 
 # Developer Notes
 
-x
+This section is a WIP containing Dev Notes.
 
 ## LTTP State RAM Debugging
 

@@ -128,10 +128,10 @@ void http_route(char *url)
     char *target = NULL;
     char *start, *end;
 
-    if (start = strstr(url, pattern))
+    if ((start = strstr(url, pattern)))
     {
         start += strlen(pattern);
-        if (end = strstr(start, pattern))
+        if ((end = strstr(start, pattern)))
         {
             target = (char *)malloc(end - start + 1);
             memcpy(target, start, end - start);

@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 {
     // Program information & credits
     printf("Zelda: A Link to the Past\n");
-    printf("Trainer API v.0.1 - Matthew Seabrook (info@mattseabrook.net)\n\n");
+    printf("Trainer API v.0.1 - 2021-02-25\n\n");
 
     //
     // Parse CLI args
@@ -71,44 +71,49 @@ int main(int argc, char *argv[])
     //
     else if (strcmp(argv[1], "-V") == 0 || strcmp(argv[1], "-v") == 0)
     {
-        printf("\n\n              _______\n\
-         ..-'`       ````---.\n\
-       .'          ___ .'````.'SS'.\n\
-      /        ..-SS####'.  /SSHH##'.\n\
-     |       .'SSSHHHH##|/#/#HH#H####'.\n\
-    /      .'SSHHHHH####/||#/: \\SHH#####\\\n\
-   /      /SSHHHHH#####/!||;`___|SSHH###\\\n\
--..__    /SSSHHH######.         \\SSSHH###\\\n\
-`.'-.''--._SHHH#####.'           '.SH####/\n\
-  '. ``'-  '/SH####`/_             `|H##/\n\
-  | '.     /SSHH###|`'==.       .=='/\\H|\n\
-  |   `'-.|SHHHH##/\\__\\/        /\\//|~|/\n\
-  |    |S#|/HHH##/             |``  |\n\
-  |    \\H' |H#.'`              \\    |\n\
-  |        ''`|               -     /\n\
-  |          /H\\          .----    /\n\
-  |         |H#/'.           `    /\n\
-  |          \\| | '..            /\n\
-  |            /|    ''..______.'\n\
-   \\          //\\__    _..-. | \n\
-    \\         ||   ````     \\ |_\n\
-     \\    _.-|               \\| |_\n\
-     _\\_.-'   `'''''-.        |   `--.\n\
- ''``    \\            `''-;    \\ /\n\
-          \\      .-'|     ````.' -\n\
-          |    .'  `--'''''-.. |/\n\
-          |  .'               \\|\n\
-          |.'\n");
+        printf("\n\n                  _______\n\
+            ..-'`       ````---.\n\
+        .'          ___ .'````.'SS'.\n\
+        /        ..-SS####'.  /SSHH##'.\n\
+        |       .'SSSHHHH##|/#/#HH#H####'.\n\
+        /      .'SSHHHHH####/||#/: \\SHH#####\\\n\
+    /      /SSHHHHH#####/!||;`___|SSHH###\\\n\
+    -..__    /SSSHHH######.         \\SSSHH###\\\n\
+    `.'-.''--._SHHH#####.'           '.SH####/\n\
+    '. ``'-  '/SH####`/_             `|H##/\n\
+    | '.     /SSHH###|`'==.       .=='/\\H|\n\
+    |   `'-.|SHHHH##/\\__\\/        /\\//|~|/\n\
+    |    |S#|/HHH##/             |``  |\n\
+    |    \\H' |H#.'`              \\    |\n\
+    |        ''`|               -     /\n\
+    |          /H\\          .----    /\n\
+    |         |H#/'.           `    /\n\
+    |          \\| | '..            /\n\
+    |            /|    ''..______.'\n\
+    \\          //\\__    _..-. | \n\
+        \\         ||   ````     \\ |_\n\
+        \\    _.-|               \\| |_\n\
+        _\\_.-'   `'''''-.        |   `--.\n\
+    ''``    \\            `''-;    \\ /\n\
+            \\      .-'|     ````.' -\n\
+            |    .'  `--'''''-.. |/\n\
+            |  .'               \\|\n\
+            |.'\n");
 
         printf("\n\n\tlttptrainer\n");
-        printf("\tv.0.1 - 02/20/2021 \n\n");
-        printf("\tAuthor: Matthew Seabrook\n");
+        printf("\tv.0.1 - 2021-02-25\n\n");
+        printf("\tAuthor: Matthew Seabrook (info@mattseabrook.net)\n");
     }
     //
     // Help text
     //
     else if (strcmp(argv[1], "-H") == 0 || strcmp(argv[1], "-h") == 0)
     {
+        help_text();
+    }
+    else
+    {
+        printf("ERROR: Unrecognized command-line switch: %s\n\n", argv[1]);
         help_text();
     }
 
