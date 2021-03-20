@@ -1,13 +1,3 @@
-# Introduction
-
-This project has many ambitious short & long-term goals regarding the usage of data traced in real-time from the memory of the SNES game Zelda: A Link to the Past. 
-
-As I gather as much community documentation regarding A Link to the Past as possible, clean it up, and create my own notes for this project, I am generating an up-to-date Offical PDF for 2021. It's a WIP included in this repo [here](#).
-
-## Design philosophy
-
-No frameworks, working in C so that this can ultimately be used with real hardware. 
-
 ## Table-of-Contents
 
 1. [Introduction](https://github.com/mattseabrook/lttptrainer#introduction)
@@ -29,7 +19,9 @@ No frameworks, working in C so that this can ultimately be used with real hardwa
 
 # Introduction
 
-Welcome to the `z3api`!
+Welcome to the `z3api`! This project has many ambitious short & long-term goals regarding the usage of data traced in real-time from the memory of the SNES game Zelda: A Link to the Past. No frameworks, and working in `C` so that this can ultimately be used with real hardware. 
+
+As I gather as much community documentation regarding A Link to the Past as possible, clean it up, and create my own notes for this project, I am generating an up-to-date Offical PDF for 2021. It's a WIP included in this repo [here](#).
 
 This software is compromised of a high-performance `C`-based server engine named `lttptrainer`, and an `http` front-end named `links-lab`. Cloning this repository, and following the below instructions in the [Getting Started](x) guide will automate the entire process of "hooking" into `snes9x` and performing a real-time memory trace. This data is fed at lightening-speed to the front-end of this software via the custom API I have developed.
 
