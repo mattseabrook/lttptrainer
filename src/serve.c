@@ -38,7 +38,12 @@ Basic HTTP functionality
 */
 int http_serve()
 {
+#ifdef __WIN32__
+    const char one = "1";
+    int client_fd;
+#else
     int one = 1, client_fd;
+#endif
     struct sockaddr_in svr_addr, cli_addr;
 
     socklen_t sin_len = sizeof(cli_addr);

@@ -10,29 +10,54 @@ No frameworks, working in C so that this can ultimately be used with real hardwa
 
 ## Table-of-Contents
 
-1. [Getting Started](https://github.com/mattseabrook/lttptrainer#getting-started)
-      1. Windows
-2. [LTTP State RAM Debugging](#lttp-state-ram-debugging)
+1. [Introduction](https://github.com/mattseabrook/lttptrainer#introduction)
+   1. [lttptrainer](https://github.com/mattseabrook/lttptrainer#lttptrainer)
+   2. [links-lab](https://github.com/mattseabrook/lttptrainer#links-lab)
+2. [Getting Started](https://github.com/mattseabrook/lttptrainer#getting-started)
+      1. [Windows](https://github.com/mattseabrook/lttptrainer#windows)
+3. [Developer Notes](https://github.com/mattseabrook/lttptrainer#developer-notes)
+   1. [LTTP State RAM Debugging](#lttp-state-ram-debugging)
       1. Manual solution from 2010
       2. Real-time tracing from SNES9x source
-3. SRAM Map
+   2. [SRAM Map](https://github.com/mattseabrook/lttptrainer#sram-map)
       1. Notes
 4. Cross-platform C code for colorized console output of SRAM bytes in hex
 5. Code
       1. Moving a window using win32
 6. Notes & Links
+7. LICENSE & Copyright Information
+
+# Introduction
+
+Welcome to the `z3api`!
+
+This software is compromised of a high-performance `C`-based server engine named `lttptrainer`, and an `http` front-end named `links-lab`. Cloning this repository, and following the below instructions in the [Getting Started](x) guide will automate the entire process of "hooking" into `snes9x` and performing a real-time memory trace. This data is fed at lightening-speed to the front-end of this software via the custom API I have developed.
+
+## lttptrainer
+
+`lttptrainer` is the "back-end" and interfaces directly with `snes9x` in a proprietary manner to capture both the active/current **SRAM** state of the game, and the entire **RAM** state of the machine in real-time (*of which the former is included.*) In this instance, machine specifically refers to the virtual representation of a Super Nintendo x specs.
+
+For our purposes in Phase One, real-time is a literal interval of `250` milliseconds. Phase Two (TBD) will include performance measurements and enhancements.
+
+As of 
 
 # Getting Started for End-Users
 
-Follow the instructions for your platform. Listed below are the general pre-requisites if **not** using `Docker`:
+Follow the instructions for your platform. Listed below are the pre-requisites and installation instructions for each platform- if you're **not** using the included `Dockerfile` (coming soon. For reference, the Docker container is based upon `Alpine Linux`, with a `mingw-w64-gcc` build system.)
 
-| Pre-req   | Desc                                                           |
-| --------- | -------------------------------------------------------------- |
-| Docker    | For reference, our container - `Alpine Linux`, `mingw-w64-gcc` |
-| snes9x    | x                                                              |
-| alttp rom | Zelda no Densetsu - Kamigami no Triforce                       |
+## Windows
 
-From a QA perspective, this software is only guaranteed to work with a ROM that matches these exact specifications:
+`nc` is not built-in to either the `CMD` or `POSH` environments of Windows. If you're starting from scratch, and not a Developer, then I recommend installing `ncat`, which you can read more about [here](https://nmap.org/ncat/). Feel free to use Python, Apache, or whatever `http://127.0.0.1:80` solution typically works for you. However please 
+
+### Pre-requisites
+
+| Pre-req   | Desc                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| ncat      | https://nmap.org/ncat/                                                                                                   |
+| snes9x    | No LUA or special Developer or Debugging builds required. At this time only the normal `v.x.x` is "officially" supported |
+| alttp rom | Zelda no Densetsu - Kamigami no Triforce. At this time, I can't verify                                                   |
+
+These are the specifications of the exact ROM image we are working with:
 
 ```text
 Name: ZELDANODENSETSU
@@ -52,12 +77,6 @@ Licensee: Nintendo
 ROM Version: 1.0
 Region: Japan
 ```
-
-## Windows
-
-**Compile**:
-
-Go to the `build` directory and run `nmake all`. The `*.exe` will be located in `\bin\x86`
 
 # Developer Notes
 
