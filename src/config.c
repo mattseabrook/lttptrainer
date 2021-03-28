@@ -33,6 +33,35 @@ void parse_cfg()
     char cfg_file[] = "~/.lttptrainer";
 #endif
 
-    // Test
-    printf("Configuration File Location: %s\n", cfg_file);
+    // Keys
+    char keys[2];
+    keys[0] = "snes9x_path";
+    keys[1] = "sramtrace_interval";
+
+    FILE *file = fopen(cfg_file, "r");
+
+    if (file != NULL)
+    {
+        char line[1000];
+
+        while (fgets(line, sizeof line, file) != NULL) /* read a line from a file */
+        {
+            fprintf(stdout, "%s", line); //print the file contents on stdout.
+            if (strncmp(line, keys[0], strlen(keys[0])) == 0)
+            {
+                char *value = strchr(line, '=');
+                value += 1;
+
+                char snes_nine_x_path = strdup(value);
+            }
+
+            // Need to check the struct and then break
+            break;
+        }
+        fclose(file);
+    }
+    else
+    {
+        // We will hard-code defaults
+    }
 }
