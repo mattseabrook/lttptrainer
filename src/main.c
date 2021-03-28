@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "config.h"
 #include "sram.h"
 #include "serve.h"
 
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
     else if (strcmp(argv[1], "-R") == 0 || strcmp(argv[1], "-r") == 0)
     {
         // Figure out stuff about pids and background processes in Windows,
+        sramdump_validate(argv[2]);
         http_serve();
 
         // Get snes9x process
@@ -63,8 +65,7 @@ int main(int argc, char *argv[])
     else if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
     {
         //...
-        sramdump_validate(argv[2]);
-        http_serve();
+        parse_cfg();
     }
     //
     // Version info
@@ -101,7 +102,7 @@ int main(int argc, char *argv[])
             |.'\n");
 
         printf("\n\n\tlttptrainer\n");
-        printf("\tv.0.1 - 2021-02-25\n\n");
+        printf("\tv.0.11 - 2021-03-28\n\n");
         printf("\tAuthor: Matthew Seabrook (info@mattseabrook.net)\n");
     }
     //
