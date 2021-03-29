@@ -65,7 +65,9 @@ int main(int argc, char *argv[])
     else if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
     {
         //...
+        printf("BEFORE");
         parse_cfg();
+        printf("AFTER");
     }
     //
     // Version info

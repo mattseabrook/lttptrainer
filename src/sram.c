@@ -12,9 +12,7 @@
 =============================================================================
 */
 
-// Byte buffer doesn't need to be here any more
-
-//char sram[SLOTSIZE * 2 + 1];
+char sram[SLOTSIZE * 2 + 1];
 
 //===========================================================================
 
@@ -27,29 +25,29 @@ Validate the *.srm file supplied on the command-line as a Zelda no Densetsu / Li
 */
 void sramdump_validate(char *file)
 {
-  FILE *srm = fopen(file, "rb");
+    FILE *srm = fopen(file, "rb");
 
-  if (srm == (FILE *)NULL)
-  {
-    printf("\n\n\t%s does not exist.\n", file);
-  }
+    if (srm == (FILE *)NULL)
+    {
+        printf("\n\n\t%s does not exist.\n", file);
+    }
 
-  if (srm)
-  {
-    fseek(srm, 0, SEEK_END);
-    unsigned long sz = ftell(srm);
-    fseek(srm, 0, SEEK_SET);
+    if (srm)
+    {
+        fseek(srm, 0, SEEK_END);
+        unsigned long sz = ftell(srm);
+        fseek(srm, 0, SEEK_SET);
 
-    // error - expecting SRAMSIZE
+        // error - expecting SRAMSIZE
 
-    /*
+        /*
         Let's do some other nice things down the road to verify it's an LTTP SRM file
         Test if $0 is mirrored at $500, etc
         */
 
-    // Dump the *.srm file to *byte_buffer
-    sramdump(srm);
-  }
+        // Dump the *.srm file to *byte_buffer
+        sramdump(srm);
+    }
 }
 
 /*
@@ -61,54 +59,54 @@ Go through the entire byte_buffer index and print it to the console
 */
 void sramdump(FILE *srm)
 {
-  char ch;
-  unsigned long index = 0;
-  unsigned long width = 0;
+    char ch;
+    unsigned long index = 0;
+    unsigned long width = 0;
 
-  unsigned char *byte_buffer = malloc(SLOTSIZE);
+    unsigned char *byte_buffer = malloc(SLOTSIZE);
 
-  printf("Slot 0:\n\n");
+    printf("Slot 0:\n\n");
 
-  while (!feof(srm))
-  {
-    ch = getc(srm);
-
-    if ((index >= 0) && (index <= SLOTSIZE))
+    while (!feof(srm))
     {
-      byte_buffer[index] = ch;
+        ch = getc(srm);
 
-      if (byte_buffer[index] != 0)
-      {
-        printf("\x1B[36m%02x ", byte_buffer[index]);
-        printf("\x1B[0m");
-      }
-      else
-      {
-        printf("%02x ", byte_buffer[index]);
-      }
+        if ((index >= 0) && (index <= SLOTSIZE))
+        {
+            byte_buffer[index] = ch;
 
-      // Represent 0 through F per row
-      if (width == 15)
-      {
-        printf("\n");
-        width = 0;
-      }
-      else
-      {
-        width++;
-      }
+            if (byte_buffer[index] != 0)
+            {
+                printf("\x1B[36m%02x ", byte_buffer[index]);
+                printf("\x1B[0m");
+            }
+            else
+            {
+                printf("%02x ", byte_buffer[index]);
+            }
 
-      index++;
+            // Represent 0 through F per row
+            if (width == 15)
+            {
+                printf("\n");
+                width = 0;
+            }
+            else
+            {
+                width++;
+            }
+
+            index++;
+        }
     }
-  }
 
-  fclose(srm);
+    fclose(srm);
 
-  // Cast unsigned char to char
-  for (int n = 0; n < SLOTSIZE; n++)
-  {
-    snprintf(&sram[n * 2], sizeof(sram) - (n * 2), "%02X", byte_buffer[n]);
-  }
+    // Cast unsigned char to char
+    for (int n = 0; n < SLOTSIZE; n++)
+    {
+        snprintf(&sram[n * 2], sizeof(sram) - (n * 2), "%02X", byte_buffer[n]);
+    }
 }
 
 // free(byte_buffer);

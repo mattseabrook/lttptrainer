@@ -10,6 +10,8 @@
 =============================================================================
 */
 
+char snes_nine_x_path;
+
 //===========================================================================
 
 /*
@@ -34,34 +36,31 @@ void parse_cfg()
 #endif
 
     // Keys
-    char keys[2];
-    keys[0] = "snes9x_path";
-    keys[1] = "sramtrace_interval";
+    char keys[2][16] = {
+        "snes9x_path",
+        "sramtrace_interval"};
 
     FILE *file = fopen(cfg_file, "r");
 
     if (file != NULL)
     {
-        char line[1000];
+        char *line[1000];
 
-        while (fgets(line, sizeof line, file) != NULL) /* read a line from a file */
+        while (fgets(line, sizeof(line), file))
         {
-            fprintf(stdout, "%s", line); //print the file contents on stdout.
-            if (strncmp(line, keys[0], strlen(keys[0])) == 0)
+            printf("%s", line);
+
+            // Path to snes9x emu
+            if (strncmp(line, keys[0], 8) == 0)
             {
-                char *value = strchr(line, '=');
-                value += 1;
-
-                char snes_nine_x_path = strdup(value);
+                printf("We have a match!");
+                strcpy(snes_nine_x_path, line);
             }
-
-            // Need to check the struct and then break
-            break;
         }
+
+        free(line);
         fclose(file);
     }
-    else
-    {
-        // We will hard-code defaults
-    }
+
+    printf("Hello");
 }
