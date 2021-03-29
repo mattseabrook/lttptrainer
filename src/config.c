@@ -35,20 +35,59 @@ void parse_cfg()
     char cfg_file[] = "~/.lttptrainer";
 #endif
 
-    // Keys
-    char keys[2][16] = {
-        "snes9x_path",
-        "sramtrace_interval"};
-
     FILE *file = fopen(cfg_file, "r");
 
     if (file != NULL)
     {
         char *line[1000];
 
-        while (fgets(line, sizeof(line), file))
+        while (fgets(line, sizeof line, file) != NULL)
         {
             printf("%s", line);
+
+            // Path to snes9x emu
+            if (strncmp(line, "snes9x_path", 11) == 0)
+            {
+                printf("<- match found");
+            }
+        }
+        fclose(file);
+    }
+    else
+    {
+        perror(file);
+    }
+
+    printf("Hello");
+}
+
+/*
+
+while ( fgets ( line, sizeof line, file ) != NULL )
+      {
+         fputs ( line, stdout ); 
+      }
+      fclose ( file );
+   }
+   else
+   {
+      perror ( filename ); 
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Path to snes9x emu
             if (strncmp(line, keys[0], 8) == 0)
@@ -56,11 +95,9 @@ void parse_cfg()
                 printf("We have a match!");
                 strcpy(snes_nine_x_path, line);
             }
-        }
 
-        free(line);
-        fclose(file);
-    }
 
-    printf("Hello");
-}
+
+
+            
+   */
