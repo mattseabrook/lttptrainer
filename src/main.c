@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 {
     // Program information & credits
     printf("Zelda: A Link to the Past\n");
-    printf("Trainer API v.0.1 - 2021-02-25\n\n");
+    printf("Trainer API v.0.11 - 2021-03-28\n\n");
 
     //
     // Parse CLI args
@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
     else if (strcmp(argv[1], "-T") == 0 || strcmp(argv[1], "-t") == 0)
     {
         //...
-        printf("BEFORE");
         parse_cfg();
-        printf("AFTER");
+        printf("\n\n====\nsnes9x_path: %s", snes_nine_x_path);
+        printf("\nSRAM trace interval (ms): %d", sramtrace_interval);
     }
     //
     // Version info
